@@ -14,10 +14,19 @@ class App extends Component {
       topic: null,
       client: null,
       streamPage: true,
+      uid: null,
     };
   }
 
   componentDidMount() {
+    this.unregisterAuthObserver = firebase.auth().onAuthStateChanged((user) => {
+      if(!user) {
+        firebase.auth().signInAnonymously();
+      }
+      console.log(user.uid);
+      this.setState({ uid: user.uid });
+    });
+
     this.topicRef = firebase.database().ref("/topic");
     this.topicCallback = this.topicRef.on("value", snap => {
       this.setState({ topic: snap.val() });
@@ -25,6 +34,8 @@ class App extends Component {
   }
 
   componentWillUnmount() {
+    this.unregisterAuthObserver();
+
     this.topicRef.off("value", this.topicCallback);
   }
 
