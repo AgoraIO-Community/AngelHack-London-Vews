@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import firebase from "./firebase";
 
 import Home from "./pages/Home/Home";
+import Stream from "./pages/Stream/Stream";
 
 import "./App.scss";
 
@@ -11,7 +12,8 @@ class App extends Component {
     super(props);
     this.state = {
       topic: null,
-      client: null
+      client: null,
+      streamPage: true,
     };
   }
 
@@ -117,21 +119,19 @@ class App extends Component {
     return (
       <div className="App">
         <div
-          id="agora-remote"
-          style={{
-            width: 640,
-            height: 480
-          }}
-        />
-        <div
           id="incoming-stream"
           style={{
+            display: "none",
             width: 640,
             height: 480
           }}
         />
         {this.state.topic ? (
-          <Home topic={this.state.topic} />
+            this.state.streamPage ? (
+                <Stream />
+                ) : (
+                <Home topic={this.state.topic} onDiscuss={() => this.setState({streamPage: true})} />
+            )
         ) : (
           <h1>Loading...</h1>
         )}

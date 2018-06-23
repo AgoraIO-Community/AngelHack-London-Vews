@@ -1,14 +1,18 @@
 .page.home {
-    background-color: #F0F0F0;
+  background-color: #F0F0F0;
 
-    > div {
-      max-width: 360px;
-      margin: 0 auto;
-      padding: 1rem;
-      text-align: left;
+  > div {
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 1rem;
+    text-align: left;
 
-      h1, p {
-        margin-bottom: 1rem;
-      }
+    h1, p {
+      margin-bottom: 1rem;
+    }
+
+    .button {
+      width: 100%;
     }
   }
+}
