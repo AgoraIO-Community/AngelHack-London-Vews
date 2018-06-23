@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      topic: "Current Topic",
+      topic: { name: "" },
       client: null
     };
   }
@@ -59,6 +59,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Hello!</h1>
+        <p>The current topic is {JSON.stringify(this.state.topic)}</p>
       </div>
     );
   }
