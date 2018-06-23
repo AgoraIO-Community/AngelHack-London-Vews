@@ -47,6 +47,20 @@
     background: #2A2D32 !important;
     border-radius: 5px;
     height: 450px;
+    position: relative !important;
+
+    * {
+      background-color: transparent !important;
+      margin: 0;
+    }
+
+    > div {
+      position: absolute !important;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
   }
 
   .button {

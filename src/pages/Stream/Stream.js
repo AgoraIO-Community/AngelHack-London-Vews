@@ -1,6 +1,7 @@
 import AgoraRTC from "agora-rtc-sdk";
 import React, { Component } from "react";
 import * as queue from "../../queue";
+import Chat from "./Chat";
 
 import "./Stream.scss";
 
@@ -19,7 +20,7 @@ class Stream extends Component {
   }
 
   componentDidMount() {
-    this.connect();
+    //this.connect();
   }
 
   connect() {
@@ -212,6 +213,7 @@ class Stream extends Component {
           </div>
           <div className="four columns">
             <div className="chat">
+                <Chat uid={this.props.uid}/>
             </div>
           </div>
         </div>
