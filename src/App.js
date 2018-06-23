@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      topic: { name: "" },
+      topic: null,
       client: null
     };
   }
@@ -64,10 +64,17 @@ class App extends Component {
       <div className="App">
           {
               this.state.topic ? (
-                  <div>
-                      <h1>{this.state.topic.title}</h1>
-                      <p>{this.state.topic.description}</p>
-                      <div className="button">Discuss</div>
+                  <div className="pages">
+                    <div className="page home">
+                      <div>
+                        <h1>{this.state.topic.title}</h1>
+                        <p>{this.state.topic.description}</p>
+                        <div className="button"><i className="fal fa-comments"/>Discuss</div>
+                      </div>
+                    </div>
+                    <div className="page stream">
+
+                    </div>
                   </div>
               ) : (
                   <h1>Loading...</h1>
