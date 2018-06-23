@@ -43,9 +43,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.topic ? (
+        {this.state.topic && this.state.uid ? (
           this.state.streamPage ? (
-            <Stream />
+            <Stream uid={this.state.uid} />
           ) : (
             <Home
               topic={this.state.topic}

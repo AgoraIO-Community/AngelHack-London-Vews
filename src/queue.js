@@ -3,6 +3,7 @@ import firebase from "./firebase";
 let uid = null;
 let firstItem = null;
 let currentCallback;
+let queue;
 
 firebase.auth().onAuthStateChanged(user => {
     if (user) uid = user.uid;
@@ -17,26 +18,39 @@ function setQueueListener(callback) {
     currentCallback = queueRef.on("value", snap => {
         const val = snap.val();
         if(!val) {
-            callback(false);
+            callback({
+                firstItem: false,
+                inQueue: false
+            });
             return;
         }
 
-        const queue = Object.keys(val).map(key => ({
+        queue = Object.keys(val).map(key => ({
             key: key,
             ...val[key],
             currentUsers: val[key].uid === uid
         }));
 
         if(queue.length === 0) {
-            callback(false);
+            callback({
+                firstItem: false,
+                inQueue: false
+            });
         } else {
+            if(firstItem && (queue[0].key === firstItem.key)) return;
+
             firstItem = queue[0];
+
+            const inQueue = queue.some(i => i.currentUsers);
 
             if(firstItem.currentUsers) {
                 firstItem.timeoutId = setTimeout(stop, 15000);
             }
 
-            callback(firstItem);
+            callback({
+                firstItem,
+                inQueue
+            });
         }
     });
 }
@@ -45,10 +59,15 @@ function stop() {
     if(firstItem && firstItem.currentUsers) {
         clearTimeout(firstItem.timeoutId);
         queueRef.child(firstItem.key).remove();
+    } else {
+        let toRemove = queue.find(item => item.uid === uid);
+        if(toRemove) {
+            queueRef.child(toRemove.key).remove();
+        }
     }
 }
 
-function queue() {
+function enqueue() {
     if (!uid) return;
     const item = {
         uid: uid
@@ -61,12 +80,12 @@ function queue() {
 }
 
 window.stop = stop;
-window.queue = queue;
+window.enqueue = enqueue;
 window.setQueueListener = setQueueListener;
 
 export {
     queueRef,
     stop,
-    queue,
+    enqueue,
     setQueueListener
 }

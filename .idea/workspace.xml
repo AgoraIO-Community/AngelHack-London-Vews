@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0b37cfc7-c433-4799-b1e0-ee711750b7f5" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/queue.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Stream/Stream.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Stream/Stream.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/queue.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="26" selection-end-column="41" />
+            <state relative-caret-position="219">
+              <caret line="44" column="27" lean-forward="true" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -31,11 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Stream.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Stream.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/Stream/Stream.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="108" column="16" selection-start-line="108" selection-start-column="16" selection-end-line="108" selection-end-column="16" />
+            <state relative-caret-position="197">
+              <caret line="58" column="62" selection-start-line="58" selection-start-column="62" selection-end-line="58" selection-end-column="62" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -46,17 +46,8 @@
       <file leaf-file-name="queue.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/queue.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="34" column="40" lean-forward="true" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Home.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/Home/Home.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="10" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+            <state relative-caret-position="-629">
+              <caret line="2" column="15" lean-forward="true" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -65,7 +56,7 @@
         <entry file="file://$PROJECT_DIR$/src/App.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+              <caret line="184" selection-start-line="184" selection-end-line="184" />
             </state>
           </provider>
         </entry>
@@ -73,8 +64,8 @@
       <file leaf-file-name="Stream.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/Stream/Stream.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+            <state relative-caret-position="255">
+              <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -83,7 +74,7 @@
         <entry file="file://$PROJECT_DIR$/src/pages/Home/Home.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -119,9 +110,10 @@
         <option value="$PROJECT_DIR$/src/App.scss" />
         <option value="$PROJECT_DIR$/src/pages/Stream/Stream.scss" />
         <option value="$PROJECT_DIR$/src/firebase.js" />
-        <option value="$PROJECT_DIR$/src/pages/Stream/Stream.js" />
+        <option value="$PROJECT_DIR$/src/enqueue.js" />
         <option value="$PROJECT_DIR$/src/queue.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/pages/Stream/Stream.js" />
       </list>
     </option>
   </component>
@@ -139,7 +131,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="x" value="949" />
     <option name="width" value="980" />
     <option name="height" value="1230" />
@@ -228,7 +220,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/App.js</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/pages/Stream/Stream.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
@@ -347,7 +338,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1529751990104</updated>
-      <workItem from="1529751993459" duration="13858000" />
+      <workItem from="1529751993459" duration="17007000" />
     </task>
     <task id="LOCAL-00001" summary="Firebase stuff">
       <created>1529754335037</created>
@@ -419,21 +410,28 @@
       <option name="project" value="LOCAL" />
       <updated>1529763966947</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Queue stuff">
+      <created>1529766675705</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1529766675705</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13858000" />
+    <option name="totallyTimeSpent" value="17007000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="828" extended-state="6" />
+    <frame x="633" y="0" width="653" height="820" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14387918" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29383117" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" sideWeight="0.5007949" side_tool="true" weight="0.32803467" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32803467" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32658958" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -465,7 +463,8 @@
     <MESSAGE value="Home screen changes" />
     <MESSAGE value="Stream page" />
     <MESSAGE value="Uid stuffs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Uid stuffs" />
+    <MESSAGE value="Queue stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Queue stuff" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Emoji.js">
@@ -533,34 +532,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/Stream/Stream.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/Home/Home.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/Home/Home.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="10" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+          <caret line="184" selection-start-line="184" selection-end-line="184" />
         </state>
       </provider>
     </entry>
@@ -574,10 +559,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/Stream/Stream.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/Stream/Stream.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="108" column="16" selection-start-line="108" selection-start-column="16" selection-end-line="108" selection-end-column="16" />
+        <state relative-caret-position="255">
+          <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/Home/Home.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="10" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="44" column="27" lean-forward="true" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -586,15 +585,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/queue.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="40" lean-forward="true" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
+        <state relative-caret-position="-629">
+          <caret line="2" column="15" lean-forward="true" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/Stream/Stream.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="26" selection-end-column="41" />
+        <state relative-caret-position="197">
+          <caret line="58" column="62" selection-start-line="58" selection-start-column="62" selection-end-line="58" selection-end-column="62" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
