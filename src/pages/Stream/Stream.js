@@ -62,7 +62,6 @@ class Stream extends Component {
 
     //  MONITOR
     client.on("stream-added", function(evt) {
-      alert("STREAM ADDED")
       var stream = evt.stream;
       //Subscribe to a remote stream after a new stream is added
       client.subscribe(stream, function(err) {
@@ -82,10 +81,6 @@ class Stream extends Component {
       var stream = evt.stream;
       document.getElementById("incoming-stream").innerHTML = "";
       stream.play("incoming-stream");
-      console.log("Got stream-subscribed event");
-      console.log("Timestamp: " + Date.now());
-      console.log("Subscribe remote stream successfully: " + stream.getId());
-      console.log(evt);
     });
 
     /*
