@@ -93,21 +93,29 @@ class Stream extends Component {
 
   render() {
     return (
-      <div className="Stream">
+      <div className="stream">
+        <div className="streams-wrapper">
+          <div
+            id="incoming-stream"
+            className="stream-container"
+            style={{
+              width: 640,
+              height: 480
+            }}
+          />
+          <div
+            id="outgoing-stream"
+            className="stream-container"
+            style={{
+              width: 640,
+              height: 480
+            }}
+          />
+        </div>
         <div
-          id="incoming-stream"
-          style={{
-            width: 640,
-            height: 480
-          }}
-        />
-        <div
-          id="outgoing-stream"
-          style={{
-            width: 640,
-            height: 480
-          }}
-        />
+        className="buttons">
+
+        </div>
       </div>
     );
   }

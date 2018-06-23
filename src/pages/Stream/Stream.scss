@@ -1,10 +1,27 @@
-.page.stream {
-    background-color: black;
+.stream {
+  min-height: 100vh;
+  background-color: #131519;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  .streams-wrapper {
+    display: flex;
+
+    * {
+      background: #131519;
+    }
+  }
   .button {
     position: fixed;
     bottom: 1rem;
     right: 1rem;
     width: 3rem;
+  }
+
+  video {
+    border-radius: 5px;
+    padding: 20px;
   }
 }
