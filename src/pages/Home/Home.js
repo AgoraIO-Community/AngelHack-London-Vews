@@ -9,6 +9,7 @@ class Home extends Component {
                 <div>
                     <h1>{this.props.topic.title}</h1>
                     <p>{this.props.topic.description}</p>
+                    <p>{this.props.topic.date}</p>
                     <div className="button"><i className="fal fa-comments"/>Discuss</div>
                 </div>
             </div>
