@@ -60,11 +60,13 @@ class Stream extends Component {
       console.log("Stopping stream...");
       this.state.client.unpublish(this.state.streamingStream);
       this.state.streamingStream.stop();
+      this.state.streamingStream.close();
       this.setState({ streaming: false, streamingStream: null });
     }
     if (this.state.watching) {
       console.log("Stopping watch...");
       this.state.watchingStream.stop();
+      this.state.watchingStream.close();
       this.setState({ watching: false, watchingStream: null });
     }
   }
