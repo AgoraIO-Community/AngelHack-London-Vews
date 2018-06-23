@@ -65,6 +65,7 @@ class Stream extends Component {
     }
     if (this.state.watching) {
       console.log("Stopping watch...");
+      this.state.client.unsubscribe(this.state.watchingStream);
       this.state.watchingStream.stop();
       this.state.watchingStream.close();
       this.setState({ watching: false, watchingStream: null });
