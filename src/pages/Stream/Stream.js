@@ -73,7 +73,7 @@ class Stream extends Component {
         watching: false,
         watchingStream: null
       }, () => {
-    
+
         this.connect();
       })
     }, (err) => {
@@ -183,9 +183,16 @@ class Stream extends Component {
             />
             <div className="info">
               {this.state.inQueue ? (
-                <div className="button" onClick={() => queue.stop()}>
-                  Leave streaming queue.
-                </div>
+                  this.state.firstItem.currentUsers
+                      ? (
+                          <div className="button" onClick={() => queue.stop()}>
+                              Stop streaming.
+                          </div>
+                      )
+                      : ( <div className="button" onClick={() => queue.stop()}>
+                              Leave streaming queue.
+                          </div>
+                      )
               ) : (
                 <div className="button" onClick={() => queue.enqueue()}>
                   Join streaming queue.
