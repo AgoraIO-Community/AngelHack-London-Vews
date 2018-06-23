@@ -37,7 +37,7 @@ function setQueueListener(callback) {
                 inQueue: false
             });
         } else {
-            if(firstItem && (queue[0].key === firstItem.key)) return;
+            //if(firstItem && (queue[0].key === firstItem.key)) return;
 
             firstItem = queue[0];
 
