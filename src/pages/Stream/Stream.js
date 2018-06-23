@@ -1,5 +1,6 @@
 import AgoraRTC from "agora-rtc-sdk";
 import React, { Component } from "react";
+import { queueRef } from "../../queue";
 
 import "./Stream.scss";
 
@@ -7,9 +8,8 @@ class Stream extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      topic: null,
       client: null,
-      streamPage: true,
+      queue: null,
     };
   }
 
@@ -28,6 +28,11 @@ class Stream extends Component {
         this.watch();
       });
     });
+
+    /*this.queueCallback = queueRef.on("value", snap => {
+      this.setState({ queue: snap.val() });
+      console.log(snap.val());
+    });*/
   }
 
   stream(uid) {
@@ -89,6 +94,10 @@ class Stream extends Component {
     client.on("stream-removed", function(evt) {
       var stream = evt.stream;
     });
+  }
+
+  componentWillUnmount() {
+      //queueRef.off("value", this.queueCallback);
   }
 
   render() {

@@ -22,8 +22,10 @@ class App extends Component {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
       if (!user) {
         firebase.auth().signInAnonymously();
+      } else {
+        console.log(user.uid);
+        this.setState({ uid: user.uid });
       }
-      this.setState({ uid: user.uid });
     });
 
     this.topicRef = firebase.database().ref("/topic");
