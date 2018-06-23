@@ -55,6 +55,7 @@ class App extends Component {
       this.setState({
         client
       })
+    });
 
 
       //  MONITOR
@@ -98,7 +99,10 @@ class App extends Component {
         console.log("Timestamp: " + Date.now());
         console.log(evt);
       });
-    });
+  }
+
+  stream() {
+
   }
 
   componentWillUnmount() {
