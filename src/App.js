@@ -14,16 +14,15 @@ class App extends Component {
       topic: null,
       client: null,
       streamPage: true,
-      uid: null,
+      uid: null
     };
   }
 
   componentDidMount() {
-    this.unregisterAuthObserver = firebase.auth().onAuthStateChanged((user) => {
-      if(!user) {
+    this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
+      if (!user) {
         firebase.auth().signInAnonymously();
       }
-      console.log(user.uid);
       this.setState({ uid: user.uid });
     });
 
@@ -43,11 +42,14 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.topic ? (
-            this.state.streamPage ? (
-                <Stream />
-                ) : (
-                <Home topic={this.state.topic} onDiscuss={() => this.setState({streamPage: true})} />
-            )
+          this.state.streamPage ? (
+            <Stream />
+          ) : (
+            <Home
+              topic={this.state.topic}
+              onDiscuss={() => this.setState({ streamPage: true })}
+            />
+          )
         ) : (
           <h1>Loading...</h1>
         )}
