@@ -163,6 +163,16 @@ class Stream extends Component {
     //queueRef.off("value", this.queueCallback);
   }
 
+  stop() {
+      queue.stop();
+      this.setState({inQueue: false});
+  }
+
+  enqueue() {
+      queue.enqueue();
+      this.setState({inQueue: true});
+  }
+
   render() {
     return (
       <div className="stream">
@@ -185,23 +195,24 @@ class Stream extends Component {
               {this.state.inQueue ? (
                   this.state.firstItem.currentUsers
                       ? (
-                          <div className="button" onClick={() => queue.stop()}>
+                          <div className="button" onClick={() => this.stop()}>
                               Stop streaming.
                           </div>
                       )
-                      : ( <div className="button" onClick={() => queue.stop()}>
+                      : ( <div className="button" onClick={() => this.stop()}>
                               Leave streaming queue.
                           </div>
                       )
               ) : (
-                <div className="button" onClick={() => queue.enqueue()}>
+                <div className="button" onClick={() => this.enqueue()}>
                   Join streaming queue.
                 </div>
               )}
             </div>
           </div>
           <div className="four columns">
-            <div className="chat" />
+            <div className="chat">
+            </div>
           </div>
         </div>
       </div>
