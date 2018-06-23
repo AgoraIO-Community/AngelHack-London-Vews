@@ -3,14 +3,28 @@
   background-color: #131519;
   color: white;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  .titles > .location {
+    font-family: 'Sailec Bold';
+    font-size: 2em;
+  }
+
+  .titles > .time {
+    font-family: 'Sailec Bold';
+    margin-bottom: 15px;
+    color: #ff4242;
+    font-size: 1.5em;
+  }
 
   .streams-wrapper {
     display: flex;
 
     * {
-      background: #131519;
+      background: #131519 !important;
+      position: initial !important;
     }
   }
   .button {
@@ -20,8 +34,18 @@
     width: 3rem;
   }
 
+  .resize-sensor {
+    display: none;
+  }
+
   video {
     border-radius: 5px;
-    padding: 20px;
+    height: auto !important;
+  }
+  
+  .chat {
+    background: #2A2D32 !important;
+    border-radius: 5px;
+    height: 450px;
   }
 }

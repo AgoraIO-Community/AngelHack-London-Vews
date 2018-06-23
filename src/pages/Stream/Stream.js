@@ -9,24 +9,25 @@ class Stream extends Component {
     super(props);
     this.state = {
       client: null,
-      queue: null,
+      queue: null
     };
   }
 
   componentDidMount() {
     const client = AgoraRTC.createClient({ mode: "interop" });
 
-    client.init("8afc4d7d7acf4d10a4014c306d7153c1", function() {
-    });
+    client.init("8afc4d7d7acf4d10a4014c306d7153c1", function() {});
 
     client.join(null, "webtest", undefined, uid => {
-
-      this.setState({
-        client
-      }, () => {
-        this.stream(uid);
-        this.watch();
-      });
+      this.setState(
+        {
+          client
+        },
+        () => {
+          this.stream(uid);
+          this.watch();
+        }
+      );
     });
 
     /*this.queueCallback = queueRef.on("value", snap => {
@@ -45,15 +46,12 @@ class Stream extends Component {
       screen: false
     });
 
-    localStream.setVideoProfile("480p_4");
+    localStream.setVideoProfile("720P_3");
 
     localStream.init(function() {
-      client.enableDualStream(function() {
-      }, function(err) {
-      })
+      client.enableDualStream(function() {}, function(err) {});
       localStream.play("outgoing-stream");
-      client.publish(localStream, function(err) {
-      });
+      client.publish(localStream, function(err) {});
     });
   }
 
@@ -64,15 +62,13 @@ class Stream extends Component {
     client.on("stream-added", function(evt) {
       var stream = evt.stream;
       //Subscribe to a remote stream after a new stream is added
-      client.subscribe(stream, function(err) {
-      });
+      client.subscribe(stream, function(err) {});
     });
 
     /*
       @event: peer-leave when existing stream left the channel
       */
-    client.on("peer-leave", function(evt) {
-    });
+    client.on("peer-leave", function(evt) {});
 
     /*
       @event: stream-subscribed when a stream is successfully subscribed
@@ -92,33 +88,44 @@ class Stream extends Component {
   }
 
   componentWillUnmount() {
-      //queueRef.off("value", this.queueCallback);
+    //queueRef.off("value", this.queueCallback);
   }
 
   render() {
     return (
       <div className="stream">
-        <div className="streams-wrapper">
-          <div
-            id="incoming-stream"
-            className="stream-container"
-            style={{
-              width: 640,
-              height: 480
-            }}
-          />
-          <div
-            id="outgoing-stream"
-            className="stream-container"
-            style={{
-              width: 640,
-              height: 480
-            }}
-          />
+        <div className="container titles">
+          <div className="location">
+            London, UK.
+          </div>
+          <div className="time">
+            00:57
+          </div>
         </div>
-        <div
-        className="buttons">
-
+        <div className="streams-wrapper container">
+          <div className="eight columns">
+          <div
+              id="outgoing-stream"
+              className="stream-container"
+              style={{
+                display: "none",
+                width: "100%",
+                height: 500
+              }}
+            />
+            <div
+              id="incoming-stream"
+              className="stream-container"
+              style={{
+                position: "initial",
+                width: "100%",
+                height: 500
+              }}
+            />
+          </div>
+          <div className="four columns">
+            <div className="chat" />
+          </div>
         </div>
       </div>
     );
