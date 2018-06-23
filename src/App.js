@@ -32,32 +32,38 @@ class App extends Component {
       console.log("User " + uid + " join channel successfully");
       console.log("Timestamp: " + Date.now());
 
-      // noinspection JSUnresolvedFunction
-      let localStream = AgoraRTC.createStream({
-        streamID: uid,
-        audio: true,
-        video: true,
-        screen: false
-      });
-
-      // noinspection JSUnresolvedFunction
-      localStream.setVideoProfile("480p_4");
-
-      localStream.init(function() {
-        console.log("Local stream initialized");
-        setTimeout(() => {
-          localStream.play("agora-remote");
-        }, 5000);
-        // noinspection JSUnresolvedFunction
-        client.publish(localStream, function(err) {
-          console.log("Publish stream failed", err);
-        });
-      });
-
       this.setState({
         client
+      }, () => {
+        // this.stream(uid);
+        this.watch();
       });
     });
+  }
+
+  stream(uid) {
+    let client = this.state.client;
+
+    let localStream = AgoraRTC.createStream({
+      streamID: uid,
+      audio: true,
+      video: true,
+      screen: false
+    });
+
+    localStream.setVideoProfile("480p_4");
+
+    localStream.init(function() {
+      console.log("Local stream initialized");
+      localStream.play("agora-remote");
+      client.publish(localStream, function(err) {
+        console.log("Publish stream failed", err);
+      });
+    });
+  }
+
+  watch() {
+    let client = this.state.client;
 
     //  MONITOR
     client.on("stream-added", function(evt) {
@@ -85,6 +91,7 @@ class App extends Component {
       */
     client.on("stream-subscribed", function(evt) {
       var stream = evt.stream;
+      stream.play("incoming-stream");
       console.log("Got stream-subscribed event");
       console.log("Timestamp: " + Date.now());
       console.log("Subscribe remote stream successfully: " + stream.getId());
@@ -102,8 +109,6 @@ class App extends Component {
     });
   }
 
-  stream() {}
-
   componentWillUnmount() {
     this.topicRef.off("value", this.topicCallback);
   }
@@ -113,6 +118,13 @@ class App extends Component {
       <div className="App">
         <div
           id="agora-remote"
+          style={{
+            width: 640,
+            height: 480
+          }}
+        />
+        <div
+          id="incoming-stream"
           style={{
             width: 640,
             height: 480
