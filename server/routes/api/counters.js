@@ -1,6 +1,6 @@
 const Counter = require('../../models/Counter');
 
-module.exports = (app) => {
+module.exports = (app, io) => {
   app.get('/api/counters', (req, res, next) => {
     Counter.find()
       .exec()
@@ -47,5 +47,13 @@ module.exports = (app) => {
           .catch((err) => next(err));
       })
       .catch((err) => next(err));
+  });
+
+
+  io.on('connection', function (socket) {
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data) {
+      console.log(data);
+    });
   });
 };
