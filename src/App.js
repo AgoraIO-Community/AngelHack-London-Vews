@@ -2,6 +2,8 @@ import AgoraRTC from 'agora-rtc-sdk';
 import React, { Component } from 'react';
 import firebase from "./firebase";
 
+import Home from "./pages/Home/Home";
+
 import "./App.scss";
 
 class App extends Component {
@@ -64,18 +66,7 @@ class App extends Component {
       <div className="App">
           {
               this.state.topic ? (
-                  <div className="pages">
-                    <div className="page home">
-                      <div>
-                        <h1>{this.state.topic.title}</h1>
-                        <p>{this.state.topic.description}</p>
-                        <div className="button"><i className="fal fa-comments"/>Discuss</div>
-                      </div>
-                    </div>
-                    <div className="page stream">
-
-                    </div>
-                  </div>
+                  <Home topic={this.state.topic}/>
               ) : (
                   <h1>Loading...</h1>
               )

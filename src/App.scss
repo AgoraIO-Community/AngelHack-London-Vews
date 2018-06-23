@@ -12,69 +12,39 @@ h1 {
   line-height: 1.5em;
 }
 
-.page {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+.button {
+  display: inline-block;
 
-  &.home {
-    left: -50%;
-    right: 50%;
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  padding: 0 1rem;
 
-    background-color: #F0F0F0;
+  text-align: center;
 
-    > div {
-      max-width: 360px;
-      margin: 0 auto;
-      padding: 1rem;
-      text-align: justify;
+  border-radius: 1.5rem;
 
-      h1, p {
-        margin-bottom: 1rem;
-      }
-    }
+  background: linear-gradient(330deg, #4f20ff, #ab16ff);
+  color: white;
+
+  user-select: none;
+  cursor: pointer;
+
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  transform-origin: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   }
 
-  &.stream {
-    left: 50%;
-    right: -50%;
-
-    background-color: black;
+  i {
+    margin-right: 0.5rem;
   }
 }
 
-.App {
-  .button {
-    display: inline-block;
-
-    width: 100%;
-    height: 3rem;
-    line-height: 3rem;
-    padding: 0 1rem;
-
-    text-align: center;
-
-    border-radius: 1.5rem;
-
-    background: linear-gradient(330deg, #4f20ff, #ab16ff);
-    color: white;
-
-    user-select: none;
-    cursor: pointer;
-
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    transform-origin: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-
-    &:hover {
-      transform: scale(1.03);
-      box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    }
-
-    i {
-      margin-right: 0.5rem;
-    }
-  }
+.page {
+  width: 100vw;
+  height: 100vh;
 }

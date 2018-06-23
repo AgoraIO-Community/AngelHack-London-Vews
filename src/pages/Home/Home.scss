@@ -1,0 +1,14 @@
+.page.home {
+    background-color: #F0F0F0;
+
+    > div {
+      max-width: 360px;
+      margin: 0 auto;
+      padding: 1rem;
+      text-align: justify;
+
+      h1, p {
+        margin-bottom: 1rem;
+      }
+    }
+  }
