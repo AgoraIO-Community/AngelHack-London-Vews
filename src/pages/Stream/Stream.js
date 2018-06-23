@@ -19,6 +19,10 @@ class Stream extends Component {
   }
 
   componentDidMount() {
+    this.connect();
+  }
+
+  connect() {
     const client = AgoraRTC.createClient({ mode: "interop" });
 
     client.init("8afc4d7d7acf4d10a4014c306d7153c1", function() {});
@@ -53,8 +57,31 @@ class Stream extends Component {
     });
   }
 
-  stopEverything() {
+  disconnect() {
+    queue.removeQueueListener();
+    let client = this.state.client;
+    console.log("disconnecting...")
 
+    client.leave(() => {
+      console.log("client leaves channel");
+      this.setState({
+        client: null,
+        firstItem: false,
+        inQueue: false,
+        streaming: false,
+        streamingStream: null,
+        watching: false,
+        watchingStream: null
+      }, () => {
+    
+        this.connect();
+      })
+    }, (err) => {
+      console.log("client leave failed ", err);
+    });
+  }
+
+  stopEverything() {
     console.log("Stopping everything...");
     if (this.state.streaming) {
       console.log("Stopping stream...");
@@ -125,9 +152,10 @@ class Stream extends Component {
     /*
       @event: stream-removed when a stream is removed
       */
-    client.on("stream-removed", function(evt) {
+    client.on("stream-removed", (evt) => {
       var stream = evt.stream;
       client.unsubscribe(stream);
+      this.disconnect();
     });
   }
 
@@ -150,22 +178,23 @@ class Stream extends Component {
               style={{
                 position: "initial",
                 width: "100%",
-                height: 500
+                height: 400
               }}
             />
-          </div>
-          <div className="four columns">
-            <div className="chat">
+            <div className="info">
               {this.state.inQueue ? (
                 <div className="button" onClick={() => queue.stop()}>
-                  <i className="fal fa-times" />
+                  Leave streaming queue.
                 </div>
               ) : (
                 <div className="button" onClick={() => queue.enqueue()}>
-                  <i className="fal fa-plus" />
+                  Join streaming queue.
                 </div>
               )}
             </div>
+          </div>
+          <div className="four columns">
+            <div className="chat" />
           </div>
         </div>
       </div>

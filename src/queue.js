@@ -55,6 +55,12 @@ function setQueueListener(callback) {
     });
 }
 
+function removeQueueListener() {
+    if(currentCallback) {
+        queueRef.off("value", currentCallback);
+    }
+}
+
 function stop() {
     if(firstItem && firstItem.currentUsers) {
         clearTimeout(firstItem.timeoutId);
@@ -87,5 +93,6 @@ export {
     queueRef,
     stop,
     enqueue,
-    setQueueListener
+    setQueueListener,
+    removeQueueListener
 }
