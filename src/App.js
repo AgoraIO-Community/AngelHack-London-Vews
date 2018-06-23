@@ -19,7 +19,8 @@ class App extends Component {
       this.setState({ topic: snap.val() });
     });
 
-    var client = AgoraRTC.createClient({mode:'interop'});
+    // noinspection JSCheckFunctionSignatures
+    const client = AgoraRTC.createClient({mode:'interop'});
 
     client.init("8afc4d7d7acf4d10a4014c306d7153c1", function(){
       console.log("AgoraRTC client initialized");
@@ -29,17 +30,20 @@ class App extends Component {
       console.log("User " + uid + " join channel successfully");
       console.log("Timestamp: " + Date.now());
 
+      // noinspection JSUnresolvedFunction
       let localStream = AgoraRTC.createStream({
         streamID: uid,
         audio: true,
         video: true,
         screen: false
-      })
+      });
 
+      // noinspection JSUnresolvedFunction
       localStream.setVideoProfile("480p_4");
 
       localStream.init(function(){
         console.log("Local stream initialized");
+        // noinspection JSUnresolvedFunction
         client.publish(localStream, function(err){
           console.log("Publish stream failed", err);
         });
@@ -58,8 +62,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Hello!</h1>
-        <p>The current topic is {JSON.stringify(this.state.topic)}</p>
+          {
+              this.state.topic ? (
+                  <div>
+                      <h1>{this.state.topic.title}</h1>
+                      <p>{this.state.topic.description}</p>
+                      <div className="button">Discuss</div>
+                  </div>
+              ) : (
+                  <h1>Loading...</h1>
+              )
+          }
       </div>
     );
   }

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "agora-rtc-sdk": "^2.3.1",
     "custom-react-scripts": "0.2.2",
     "firebase": "^5.1.0",
     "firebase-admin": "^5.12.1",
