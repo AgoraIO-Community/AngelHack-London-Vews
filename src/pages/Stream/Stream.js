@@ -1,6 +1,6 @@
 import AgoraRTC from "agora-rtc-sdk";
 import React, { Component } from "react";
-import { queueRef } from "../../queue";
+import * as queue from "../../queue";
 
 import "./Stream.scss";
 
@@ -9,7 +9,12 @@ class Stream extends Component {
     super(props);
     this.state = {
       client: null,
-      queue: null,
+      firstItem: false,
+      inQueue: false,
+      streaming: false,
+      streamingStream: null,
+      watching: false,
+      watchingStream: null,
     };
   }
 
@@ -20,22 +25,51 @@ class Stream extends Component {
     });
 
     client.join(null, "webtest", undefined, uid => {
-
       this.setState({
         client
       }, () => {
-        this.stream(uid);
-        this.watch();
+        console.log("Client ready!");
+
+        queue.setQueueListener(queueState => {
+          console.log(`Queue state changed to ${JSON.stringify(queueState)}`);
+          this.setState(queueState);
+          if(queueState.firstItem) {
+            console.log("First item exists...");
+            if(queueState.firstItem.currentUsers) {
+              console.log("Streaming current user...");
+              this.stream(uid);
+            } else {
+              console.log("Watching...");
+              this.watch();
+            }
+          } else {
+            console.log("No items in queue, so stopping everything...");
+            this.stopEverything();
+          }
+        });
       });
     });
+  }
 
-    /*this.queueCallback = queueRef.on("value", snap => {
-      this.setState({ queue: snap.val() });
-      console.log(snap.val());
-    });*/
+  stopEverything() {
+    document.getElementById("stream").innerHTML = "";
+    console.log("Stopping everything...");
+    if(this.state.streaming) {
+      console.log("Stopping stream...");
+      this.state.client.unpublish(this.state.streamingStream);
+      this.state.streamingStream.stop();
+      this.setState({streaming: false, streamingStream: null});
+    }
+    if(this.state.watching) {
+      console.log("Stopping watch...");
+      this.state.watchingStream.stop();
+      this.setState({watching: false, watchingStream: null});
+    }
   }
 
   stream(uid) {
+    this.stopEverything();
+
     let client = this.state.client;
 
     let localStream = AgoraRTC.createStream({
@@ -45,23 +79,27 @@ class Stream extends Component {
       screen: false
     });
 
+    this.setState({streaming: true, streamingStream: localStream});
+
     localStream.setVideoProfile("480p_4");
 
     localStream.init(function() {
       client.enableDualStream(function() {
       }, function(err) {
       })
-      localStream.play("outgoing-stream");
+      localStream.play("stream");
       client.publish(localStream, function(err) {
       });
     });
   }
 
   watch() {
+    this.stopEverything();
+
     let client = this.state.client;
 
     //  MONITOR
-    client.on("stream-added", function(evt) {
+    client.on("stream-added", (evt) => {
       var stream = evt.stream;
       //Subscribe to a remote stream after a new stream is added
       client.subscribe(stream, function(err) {
@@ -77,10 +115,10 @@ class Stream extends Component {
     /*
       @event: stream-subscribed when a stream is successfully subscribed
       */
-    client.on("stream-subscribed", function(evt) {
+    client.on("stream-subscribed", (evt) => {
       var stream = evt.stream;
-      document.getElementById("incoming-stream").innerHTML = "";
-      stream.play("incoming-stream");
+      this.setState({watching: true, watchingStream: stream});
+      stream.play("stream");
     });
 
     /*
@@ -100,15 +138,7 @@ class Stream extends Component {
       <div className="stream">
         <div className="streams-wrapper">
           <div
-            id="incoming-stream"
-            className="stream-container"
-            style={{
-              width: 640,
-              height: 480
-            }}
-          />
-          <div
-            id="outgoing-stream"
+            id="stream"
             className="stream-container"
             style={{
               width: 640,
@@ -116,10 +146,10 @@ class Stream extends Component {
             }}
           />
         </div>
-        <div
-        className="buttons">
-
-        </div>
+        {
+            this.state.inQueue ? <div className="button" onClick={() => queue.stop()}><i className="fal fa-times"/></div>
+                : <div className="button" onClick={() => queue.enqueue()}><i className="fal fa-plus"/></div>
+        }
       </div>
     );
   }
