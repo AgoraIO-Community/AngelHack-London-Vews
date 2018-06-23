@@ -54,7 +54,7 @@ class Stream extends Component {
   }
 
   stopEverything() {
-    document.getElementById("stream").innerHTML = "";
+
     console.log("Stopping everything...");
     if (this.state.streaming) {
       console.log("Stopping stream...");
@@ -65,11 +65,11 @@ class Stream extends Component {
     }
     if (this.state.watching) {
       console.log("Stopping watch...");
-      this.state.client.unsubscribe(this.state.watchingStream);
       this.state.watchingStream.stop();
       this.state.watchingStream.close();
       this.setState({ watching: false, watchingStream: null });
     }
+    document.getElementById("stream").innerHTML = "";
   }
 
   stream(uid) {
@@ -84,14 +84,14 @@ class Stream extends Component {
       screen: false
     });
 
-    this.setState({ streaming: true, streamingStream: localStream });
-
     localStream.setVideoProfile("720P_3");
 
-    localStream.init(function() {
-      client.enableDualStream(function() {}, function(err) {});
+    localStream.init(() => {
+      //client.enableDualStream(function() {}, function(err) {});
       localStream.play("stream");
       client.publish(localStream, function(err) {});
+
+      this.setState({ streaming: true, streamingStream: localStream });
     });
   }
 
@@ -117,8 +117,9 @@ class Stream extends Component {
       */
     client.on("stream-subscribed", evt => {
       var stream = evt.stream;
-      this.setState({ watching: true, watchingStream: stream });
       stream.play("stream");
+
+      this.setState({ watching: true, watchingStream: stream });
     });
 
     /*
@@ -126,6 +127,7 @@ class Stream extends Component {
       */
     client.on("stream-removed", function(evt) {
       var stream = evt.stream;
+      client.unsubscribe(stream);
     });
   }
 
