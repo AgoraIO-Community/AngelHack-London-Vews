@@ -63,6 +63,7 @@ function setQueueListener(room, callback) {
     }));
 
     queueMap[room] = queue;
+    console.log(`Queue:`, queueMap[room]);
 
     if (queue.length === 0) {
       callback({
@@ -84,7 +85,7 @@ function setQueueListener(room, callback) {
       const inQueue = queue.some(i => i.currentUsers);
 
       if (firstItem.currentUsers) {
-        firstItem.timeoutId = setTimeout(stop, 30000);
+        firstItem.timeoutId = setTimeout(() => stop(room), 30000);
         interval = setInterval(stopInterval, 1000);
       }
 
@@ -118,6 +119,7 @@ function stopInterval() {
 
 function stop(room) {
   console.log(`QUEUE-DEBUG: Stopping user in room ${room}`);
+  console.log(`QUEUE-DEBUG: First item`, firstItemMap[room]);
   if (firstItemMap[room] && firstItemMap[room].currentUsers) {
     time = 30;
     intervalRef.set({
