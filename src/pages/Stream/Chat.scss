@@ -1,4 +1,10 @@
-.stream .streams-wrapper .chat {
+.stream .stream-container .chat-container {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
   .chat-messages {
     width: 100%;
     height: calc(100% - 50px);

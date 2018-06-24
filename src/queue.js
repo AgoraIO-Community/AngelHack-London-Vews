@@ -36,7 +36,10 @@ function setIntervalListener(callback) {
 }
 
 function setQueueListener(room, callback) {
-  const queueRef = firebase.database().ref(`/queue/${room}`);
+  console.log(`QUEUE-DEBUG: Setting queue listener for room ${room}`);
+  const queueRefPath = `/queue/${room}`;
+  const queueRef = firebase.database().ref(queueRefPath);
+  console.log(`QUEUE-DEBUG: Path to queue ref is ${queueRefPath}`);
   if (currentCallbackMap[room]) {
     queueRefs[room].off("value", currentCallbackMap[room]);
   }
@@ -96,6 +99,7 @@ function setQueueListener(room, callback) {
 }
 
 function removeQueueListener(room) {
+  console.log(`QUEUE-DEBUG: Removing queue listener for room ${room}`);
   if ((room in currentCallbackMap) && (room in queueRefs)) {
     queueRefs[room].off("value", currentCallbackMap[room]);
   }
@@ -112,6 +116,7 @@ function stopInterval() {
 }
 
 function stop(room) {
+  console.log(`QUEUE-DEBUG: Stopping user in room ${room}`);
   if (firstItemMap[room] && firstItemMap[room].currentUsers) {
     time = 30;
     intervalRef.set({
@@ -129,6 +134,7 @@ function stop(room) {
 }
 
 function enqueue(room) {
+  console.log(`QUEUE-DEBUG: Enqueuing user in room ${room}`);
   if (!uid) return;
   const item = {
     uid: uid
