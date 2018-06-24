@@ -8,13 +8,13 @@
   align-items: center;
 
   .titles > .location {
-    font-family: 'Sailec Bold';
+    font-family: "Sailec Bold";
     font-size: 2em;
-    color:#ff4242;
+    color: #ff4242;
   }
 
   .titles > .time {
-    font-family: 'Sailec';
+    font-family: "Sailec";
     margin-bottom: 15px;
     color: #fff;
     font-size: 1em;
@@ -24,10 +24,9 @@
     }
   }
 
-
   .header > h1 {
     font-size: 3em;
-    font-family: 'Sailec Bold';
+    font-family: "Sailec Bold";
   }
   .header > hr {
     border: 2px solid white;
@@ -51,7 +50,7 @@
   #stream {
     margin-bottom: 25px;
     border-radius: 5px;
-    background: #2A2D32 !important;
+    background: #2a2d32 !important;
     display: flex;
     justify-content: center;
     position: relative !important;
@@ -64,30 +63,36 @@
       background: rgba(19, 21, 25, 0.5) !important;
       position: absolute !important;
       z-index: 100;
-      font-family: 'Sailec Bold';
+      font-family: "Sailec Bold";
       top: 0;
       left: 0;
       border-radius: 0px 0px 5px 0px;
       font-size: 1em;
-      color:white;
+      color: white;
     }
 
     .stream-overlay {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       padding: 10px 25px;
+      padding-right: 175px;
       width: 100%;
       min-height: 66px;
       background: rgba(19, 21, 25, 0.5) !important;
       position: absolute !important;
       z-index: 100;
-      font-weight: 'Sailec Hairline';
+      font-weight: "Sailec Hairline";
       bottom: 0;
       font-size: 1em;
+
+      * {
+        background: transparent !important;
+      }
     }
 
     h5 {
-      font-family: 'Sailec Bold';
+      font-family: "Sailec Bold";
       font-size: 2em;
       padding: 25px;
       // display: none;
@@ -103,7 +108,7 @@
     border-radius: 5px;
     height: auto !important;
   }
-  
+
   .chat {
     // background: #2A2D32 !important;
     border-radius: 5px;
@@ -132,7 +137,7 @@
     font-size: 1em;
     font-weight: normal;
     transition: 0.2s all;
-    * {  
+    * {
       background: #ff4242 !important;
       color: white;
     }
@@ -156,7 +161,7 @@
       color: #ff4242;
       cursor: pointer;
     }
-    * {  
+    * {
       background: white !important;
       color: #ff4242;
     }
@@ -167,7 +172,7 @@
     align-items: center;
 
     p {
-      color: #5A5B5E;
+      color: #5a5b5e;
     }
   }
 }

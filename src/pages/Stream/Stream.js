@@ -230,19 +230,27 @@ class Stream extends Component {
               <Chat/>
             </div>
             <div className="info">
-              <div>
+              <div style={{
+                flexGrow: 1
+              }}>
                  <p style={{
                 margin: 0
                   }}>{this.state.numWatching} {this.state.numWatching === 1 ? "person" : "people"} watching.</p>
                 <p
                   style={{
-                    margin: 0
+                    margin: 0,
+                    marginTop: 2
                   }}
                 >
                   {this.state.queueLength} in the streaming queue.
                 </p>
               </div>
-              <div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+                flexWrap: 'wrap'
+              }}>
                 <div
                   className="button back"
                   onClick={() => this.props.goBack()}

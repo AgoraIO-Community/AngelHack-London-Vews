@@ -10,9 +10,9 @@ class Chat extends Component {
         chatManager: null,
         currentUser: null,
         emojis: [
-            "😃",
-            "😭",
-            "🥑"
+            "👌",
+            "👎",
+            "❤️"
         ]
     };
 

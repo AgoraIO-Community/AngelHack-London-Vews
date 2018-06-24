@@ -17,6 +17,7 @@ let intervalRefs = {};
 let intervalCallbacks = {};
 
 // For online count
+
 // const amOnline = new Firebase('https://<demo>.firebaseio.com/.info/connected');
 // const userRef = new Firebase('https://<demo>.firebaseio.com/presence/' + userid);
 // amOnline.on('value', function(snapshot) {
