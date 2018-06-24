@@ -16,6 +16,7 @@
     height: calc(100% - 50px);
     overflow: hidden;
     position: relative !important;
+    z-index: 10000000 !important;
 
     .chat-message {
       position: absolute !important;
