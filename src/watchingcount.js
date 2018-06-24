@@ -12,14 +12,15 @@ function setCountsListener(room, callback) {
         console.log(counts);
         callback(room in counts ? counts[room] : 0);
 
-        if(!(room in counts)) {
-            countsRef.child(room).set(1);
-        } else {
             if(!(room in joined)) {
                 joined[room] = true;
-                countsRef.child(room).set(counts[room] + 1);
+
+                if(!(room in counts)) {
+                    countsRef.child(room).set(1);
+                } else {
+                    countsRef.child(room).set(counts[room] + 1);
+                }
             }
-        }
     });
 }
 
