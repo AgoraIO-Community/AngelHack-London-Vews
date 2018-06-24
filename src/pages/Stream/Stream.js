@@ -24,7 +24,7 @@ class Stream extends Component {
       streamingStream: null,
       watching: false,
       queueLength: 0,
-      time: 30,
+      time: 15,
       watchingStream: null,
       numWatching: 0,
       canStream: false
@@ -114,7 +114,7 @@ class Stream extends Component {
             streaming: false,
             streamingStream: null,
             watching: false,
-            time: 30,
+            time: 15,
             watchingStream: null
           },
           () => {
@@ -242,7 +242,7 @@ class Stream extends Component {
               }}
             >
               <div className="top-overlay" style={{
-                display: this.state.time != 30 ? 'initial' : 'none'
+                display: this.state.time != 15 ? 'initial' : 'none'
               }}>Live: {this.state.time} seconds.</div>
               <div className="stream-overlay">{this.props.topic.title}</div>
               {!this.state.streaming && !this.state.watching ? (

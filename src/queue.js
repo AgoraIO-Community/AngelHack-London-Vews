@@ -39,7 +39,7 @@ function setIntervalListener(room, callback) {
   const intervalRef = firebase.database().ref("/interval/" + room);
   intervalRefs[room] = intervalRef;
   intervalCallbacks[room] = intervalRef.on("value", snap => {
-    const val = snap.val() || {time: 30};
+    const val = snap.val() || {time: 15};
     console.log("val", val);
     timeMap[room] = val.time;
     callback(val.time);
@@ -95,8 +95,8 @@ function setQueueListener(room, callback) {
       const inQueue = queue.some(i => i.currentUsers);
 
       if (firstItem.currentUsers) {
-        firstItem.timeoutId = setTimeout(() => stop(room), 30000);
-        timeMap[room] = 30;
+        firstItem.timeoutId = setTimeout(() => stop(room), 15000);
+        timeMap[room] = 15;
         updateIntervalsMap[room] = setInterval(() => stopInterval(room), 1000);
       }
 
@@ -122,7 +122,7 @@ function removeQueueListener(room) {
 }
 
 function stopInterval(room) {
-  let time = 30;
+  let time = 15;
   if(room in timeMap) {
     console.log("in time map!");
     time = timeMap[room] - 1;
@@ -135,7 +135,7 @@ function stop(room) {
   console.log(`QUEUE-DEBUG: Stopping user in room ${room}`);
   console.log(`QUEUE-DEBUG: First item`, firstItemMap[room]);
   if (firstItemMap[room] && firstItemMap[room].currentUsers) {
-    timeMap[room] = 30;
+    timeMap[room] = 15;
     intervalRefs[room].set({
         time: timeMap[room]
     });
