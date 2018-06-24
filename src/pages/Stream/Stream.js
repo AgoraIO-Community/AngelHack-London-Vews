@@ -22,7 +22,7 @@ class Stream extends Component {
   }
 
   componentDidMount() {
-    //this.connect();
+    this.connect();
   }
 
   connect() {
