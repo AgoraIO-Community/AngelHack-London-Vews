@@ -263,7 +263,7 @@ class Stream extends Component {
                     marginTop: 2
                   }}
                 >
-                  {this.state.queueLength} in the streaming queue.
+                  {this.state.queueLength > 0 ? this.state.queueLength - 1 : 0} in the streaming queue.
                 </p>
               </div>
               <div style={{
