@@ -18,6 +18,12 @@ class App extends Component {
     };
   }
 
+  goBack() {
+    this.setState({
+      streamPage: false
+    });
+  }
+
   componentDidMount() {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
       if (!user) {
@@ -36,7 +42,6 @@ class App extends Component {
 
   componentWillUnmount() {
     this.unregisterAuthObserver();
-
     this.topicRef.off("value", this.topicCallback);
   }
 
@@ -45,7 +50,7 @@ class App extends Component {
       <div className="App">
         {this.state.topic && this.state.uid ? (
           this.state.streamPage ? (
-            <Stream uid={this.state.uid} />
+            <Stream uid={this.state.uid} topic={this.state.topic} goBack={this.goBack.bind(this)} />
           ) : (
             <Home
               topic={this.state.topic}
@@ -53,7 +58,7 @@ class App extends Component {
             />
           )
         ) : (
-          <h1></h1>
+          <h1 />
         )}
       </div>
     );

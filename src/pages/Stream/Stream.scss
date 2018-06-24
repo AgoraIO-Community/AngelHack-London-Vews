@@ -10,13 +10,18 @@
   .titles > .location {
     font-family: 'Sailec Bold';
     font-size: 2em;
+    color:#ff4242;
   }
 
   .titles > .time {
-    font-family: 'Sailec Bold';
+    font-family: 'Sailec';
     margin-bottom: 15px;
-    color: #ff4242;
-    font-size: 1.5em;
+    color: #fff;
+    font-size: 1em;
+    span {
+      // font-family: 'Sailec Bold';
+      // color: #ff4242;
+    }
   }
 
   .streams-wrapper {
@@ -27,11 +32,37 @@
       position: initial !important;
     }
   }
-  .button {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    width: 3rem;
+
+  #stream {
+    margin-bottom: 25px;
+    border-radius: 5px;
+    background: #2A2D32 !important;
+    display: flex;
+    justify-content: center;
+    position: relative !important;
+    align-items: center;
+
+    .stream-overlay {
+      display: flex;
+      align-items: center;
+      padding: 10px 25px;
+      width: 100%;
+      min-height: 66px;
+      background: rgba(19, 21, 25, 0.5) !important;
+      position: absolute !important;
+      z-index: 100;
+      font-weight: 'Sailec Hairline';
+      bottom: 0;
+      font-size: 1em;
+    }
+
+    h5 {
+      font-family: 'Sailec Bold';
+      font-size: 2em;
+      padding: 25px;
+      // display: none;
+      background: none !important;
+    }
   }
 
   .resize-sensor {
@@ -44,7 +75,7 @@
   }
   
   .chat {
-    background: #2A2D32 !important;
+    // background: #2A2D32 !important;
     border-radius: 5px;
     height: 450px;
   }
@@ -53,13 +84,46 @@
     width: auto;
     border: 0px;
     text-transform: none;
+    border-radius: 25px;
     font-size: 1em;
     font-weight: normal;
+    transition: 0.2s all;
     * {  
       background: #ff4242 !important;
       color: white;
     }
+    &:hover {
+      transition: 0.2s all;
+      opacity: 0.5;
+      color: white;
+      cursor: pointer;
+    }
     background: #ff4242 !important;
     color: white;
+  }
+  .back {
+    background: white !important;
+    color: #ff4242;
+    margin-right: 15px;
+
+    &:hover {
+      transition: 0.2s all;
+      opacity: 0.5;
+      color: #ff4242;
+      cursor: pointer;
+    }
+    * {  
+      background: white !important;
+      color: #ff4242;
+    }
+  }
+  .info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+      color: #5A5B5E;
+    }
   }
 }

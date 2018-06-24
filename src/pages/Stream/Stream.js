@@ -14,6 +14,8 @@ class Stream extends Component {
       streaming: false,
       streamingStream: null,
       watching: false,
+      queueLength: 0,
+      time: 30,
       watchingStream: null
     };
   }
@@ -34,7 +36,11 @@ class Stream extends Component {
         },
         () => {
           console.log("Client ready!");
-
+          queue.setIntervalListener(interval => {
+            this.setState({
+              time: interval
+            });
+          });
           queue.setQueueListener(queueState => {
             console.log(`Queue state changed to ${JSON.stringify(queueState)}`);
             this.setState(queueState);
@@ -47,6 +53,8 @@ class Stream extends Component {
                 console.log("Watching...");
                 this.watch();
               }
+            } else if (queueState.updateQueue) {
+              return;
             } else {
               console.log("No items in queue, so stopping everything...");
               this.stopEverything();
@@ -58,27 +66,34 @@ class Stream extends Component {
   }
 
   disconnect() {
+    this.stopEverything();
     queue.removeQueueListener();
     let client = this.state.client;
-    console.log("disconnecting...")
+    console.log("disconnecting...");
 
-    client.leave(() => {
-      console.log("client leaves channel");
-      this.setState({
-        client: null,
-        firstItem: false,
-        inQueue: false,
-        streaming: false,
-        streamingStream: null,
-        watching: false,
-        watchingStream: null
-      }, () => {
-
-        this.connect();
-      })
-    }, (err) => {
-      console.log("client leave failed ", err);
-    });
+    client.leave(
+      () => {
+        console.log("client leaves channel");
+        this.setState(
+          {
+            client: null,
+            firstItem: false,
+            inQueue: false,
+            streaming: false,
+            streamingStream: null,
+            watching: false,
+            time: 30,
+            watchingStream: null
+          },
+          () => {
+            this.connect();
+          }
+        );
+      },
+      err => {
+        console.log("client leave failed ", err);
+      }
+    );
   }
 
   stopEverything() {
@@ -96,7 +111,6 @@ class Stream extends Component {
       this.state.watchingStream.close();
       this.setState({ watching: false, watchingStream: null });
     }
-    document.getElementById("stream").innerHTML = "";
   }
 
   stream(uid) {
@@ -152,7 +166,7 @@ class Stream extends Component {
     /*
       @event: stream-removed when a stream is removed
       */
-    client.on("stream-removed", (evt) => {
+    client.on("stream-removed", evt => {
       var stream = evt.stream;
       client.unsubscribe(stream);
       this.disconnect();
@@ -164,54 +178,71 @@ class Stream extends Component {
   }
 
   stop() {
-      queue.stop();
-      this.setState({inQueue: false});
+    queue.stop();
+    this.setState({ inQueue: false });
   }
 
   enqueue() {
-      queue.enqueue();
-      this.setState({inQueue: true});
+    queue.enqueue();
+    this.setState({ inQueue: true });
   }
 
   render() {
     return (
       <div className="stream">
         <div className="container titles">
-          <div className="location">London, UK.</div>
-          <div className="time">00:57</div>
+          <div className="location">Live: {this.state.time} seconds.</div>
+          <div className="time">London, UK.</div>
         </div>
         <div className="streams-wrapper container">
-          <div className="eight columns">
+          <div className="twelve columns">
             <div
               id="stream"
               className="stream-container"
               style={{
                 position: "initial",
                 width: "100%",
-                height: 400
+                height: 500
               }}
-            />
-            <div className="info">
-              {this.state.inQueue ? (
-                  this.state.firstItem.currentUsers
-                      ? (
-                          <div className="button" onClick={() => this.stop()}>
-                              Stop streaming.
-                          </div>
-                      )
-                      : ( <div className="button" onClick={() => this.stop()}>
-                              Leave streaming queue.
-                          </div>
-                      )
-              ) : (
-                <div className="button" onClick={() => this.enqueue()}>
-                  Join streaming queue.
-                </div>
-              )}
+            >
+              <div className="stream-overlay">{this.props.topic.title}</div>
+              {!this.state.streaming && !this.state.watching ? (
+                <h5>No one is streaming right now, why don't you?</h5>
+              ) : null}
             </div>
-          </div>
-          <div className="four columns">
-            <div className="chat">
+            <div className="info">
+              <div>
+                {/* <p style={{
+                margin: 0
+              }}>10 people watching.</p> */}
+                <p
+                  style={{
+                    margin: 0
+                  }}
+                >
+                  {this.state.queueLength} in the streaming queue.
+                </p>
+              </div>
+              <div>
+                <div className="button back" onClick={() => this.props.goBack()}>
+                  Back to Stories
+                </div>
+                {this.state.inQueue ? (
+                  this.state.firstItem.currentUsers ? (
+                    <div className="button" onClick={() => this.stop()}>
+                      Stop streaming.
+                    </div>
+                  ) : (
+                    <div className="button" onClick={() => this.stop()}>
+                      Leave streaming queue.
+                    </div>
+                  )
+                ) : (
+                  <div className="button" onClick={() => this.enqueue()}>
+                    Join streaming queue.
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

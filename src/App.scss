@@ -155,6 +155,7 @@
 
 * {
   font-family: "Sailec", sans-serif;
+  letter-spacing: 0rem !important;
 }
 
 html, body {
@@ -174,37 +175,6 @@ h1 {
 
 .page {
   overflow: hidden;
-}
-
-.button {
-  display: inline-block;
-
-  height: 3rem;
-  line-height: 3rem;
-  padding: 0 1rem;
-
-  text-align: center;
-
-  border-radius: 1.5rem;
-
-  background: linear-gradient(330deg, #4f20ff, #ab16ff);
-  color: white;
-
-  user-select: none;
-  cursor: pointer;
-
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  transform-origin: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-
-  &:hover {
-    transform: scale(1.03);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-  }
-
-  i:not(:last-child) {
-    margin-right: 0.5rem;
-  }
 }
 
 .page {

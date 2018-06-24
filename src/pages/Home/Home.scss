@@ -1,18 +1,48 @@
 .page.home {
-  background-color: #F0F0F0;
+  min-height: 100vh;
+  background-color: #131519;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   > div {
-    max-width: 360px;
-    margin: 0 auto;
-    padding: 1rem;
-    text-align: left;
-
-    h1, p {
-      margin-bottom: 1rem;
+    h1 {
+      font-size: 2em;
+      font-family: 'Sailec Bold';
     }
-
-    .button {
-      width: 100%;
+    h5 {
+      font-size: 1em;
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
+  }
+
+
+  .button {
+    width: auto;
+    align-items: center;
+    border-radius: 25px;
+    justify-content: center;
+    border: 0px;
+    text-transform: none;
+    font-size: 1em;
+    font-weight: normal;
+    background: #ff4242 !important;
+    color: white;
+    * {  
+      background: #ff4242 !important;
+      color: white;
+    }
+    transition: 0.2s all;
+    &:hover {
+      transition: 0.2s all;
+      opacity: 0.5;
+      cursor: pointer;
+    }
+    background: #ff4242 !important;
+    color: white;
   }
 }
