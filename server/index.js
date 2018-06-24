@@ -17,6 +17,7 @@ function update() {
     // console.log("Updating...");
     news.v2.topHeadlines({
         language: "en",
+        country: 'us',
         pageSize: 5
     }).then(res => {
         console.log("Got top story");
