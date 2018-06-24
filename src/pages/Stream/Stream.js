@@ -190,9 +190,11 @@ class Stream extends Component {
   render() {
     return (
       <div className="stream">
-        <div className="container titles">
-          <div className="location">Live: {this.state.time} seconds.</div>
-          <div className="time">London, UK.</div>
+        <div className="container">
+          <div className="header">
+            <h1>Discussion.</h1>
+            <hr />
+          </div>
         </div>
         <div className="streams-wrapper container">
           <div className="twelve columns">
@@ -205,6 +207,9 @@ class Stream extends Component {
                 height: 500
               }}
             >
+              <div className="top-overlay" style={{
+                display: this.state.time != 30 ? 'initial' : 'none'
+              }}>Live: {this.state.time} seconds.</div>
               <div className="stream-overlay">{this.props.topic.title}</div>
               {!this.state.streaming && !this.state.watching ? (
                 <h5>No one is streaming right now, why don't you?</h5>
@@ -224,8 +229,11 @@ class Stream extends Component {
                 </p>
               </div>
               <div>
-                <div className="button back" onClick={() => this.props.goBack()}>
-                  Back to Stories
+                <div
+                  className="button back"
+                  onClick={() => this.props.goBack()}
+                >
+                  Back to Stories.
                 </div>
                 {this.state.inQueue ? (
                   this.state.firstItem.currentUsers ? (

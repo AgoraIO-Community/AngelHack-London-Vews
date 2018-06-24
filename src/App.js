@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       topic: null,
       client: null,
-      streamPage: true,
+      streamPage: false,
       uid: null
     };
   }

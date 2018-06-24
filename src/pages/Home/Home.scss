@@ -1,27 +1,50 @@
 .page.home {
   min-height: 100vh;
+  overflow: scroll;
   background-color: #131519;
   color: white;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 
   > div {
     h1 {
       font-size: 2em;
-      font-family: 'Sailec Bold';
+      margin: 0;
+      font-family: "Sailec Bold";
     }
     h5 {
+      margin: 0;
       font-size: 1em;
       padding-top: 10px;
+      color: #5A5B5E;
       padding-bottom: 10px;
+    }
+
+    .topic {
+      margin-bottom: 65px;
     }
   }
 
+  .header > h1 {
+    font-size: 3em;
+  }
+  .header > hr {
+    border: 2px solid white;
+    width: 75px;
+    margin-top: 17.5px;
+  }
 
-  .button {
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .container {
+    padding-top: 50px;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .button.first {
     width: auto;
     align-items: center;
     border-radius: 25px;
@@ -32,7 +55,7 @@
     font-weight: normal;
     background: #ff4242 !important;
     color: white;
-    * {  
+    * {
       background: #ff4242 !important;
       color: white;
     }
@@ -44,5 +67,28 @@
     }
     background: #ff4242 !important;
     color: white;
+  }
+
+  .button.rest {
+    width: auto;
+    align-items: center;
+    border-radius: 25px;
+    justify-content: center;
+    border: 0px;
+    text-transform: none;
+    font-size: 1em;
+    font-weight: normal;
+    background: #2A2D32 !important;
+    color: #aaa;
+    * {
+      background: #2A2D32 !important;
+      color: #aaa;
+    }
+    transition: 0.2s all;
+    &:hover {
+      transition: 0.2s all;
+      opacity: 0.5;
+      cursor: pointer;
+    }
   }
 }
