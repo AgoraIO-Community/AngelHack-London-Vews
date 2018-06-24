@@ -1,16 +1,17 @@
 import firebase from "./firebase";
 
 let uid = null;
-let firstItem = null;
-let currentCallback;
+let firstItemMap = {};
+let currentCallbackMap = {};
 let currentIntervalCallback;
-let queue;
+let queueMap = {};
+let queueRefs = {};
 
 firebase.auth().onAuthStateChanged(user => {
   if (user) uid = user.uid;
 });
 
-const queueRef = firebase.database().ref("/queue");
+// const queueRef = firebase.database().ref("/queue");
 const intervalRef = firebase.database().ref("/interval");
 
 // For online count
@@ -35,11 +36,13 @@ function setIntervalListener(callback) {
   });
 }
 
-function setQueueListener(callback) {
-  if (currentCallback) {
-    queueRef.off("value", currentCallback);
+function setQueueListener(room, callback) {
+  const queueRef = firebase.database().ref(`/queue/${room}`);
+  if (currentCallbackMap[room]) {
+    queueRefs[room].off("value", currentCallbackMap[room]);
   }
-  currentCallback = queueRef.on("value", snap => {
+  queueRefs[room] = queueRef;
+  currentCallbackMap[room] = queueRef.on("value", snap => {
     const val = snap.val();
     if (!val) {
       callback({
@@ -50,11 +53,13 @@ function setQueueListener(callback) {
       return;
     }
 
-    queue = Object.keys(val).map(key => ({
+    const queue = Object.keys(val).map(key => ({
       key: key,
       ...val[key],
       currentUsers: val[key].uid === uid
     }));
+
+    queueMap[room] = queue;
 
     if (queue.length === 0) {
       callback({
@@ -63,7 +68,7 @@ function setQueueListener(callback) {
         queueLength: queue.length
       });
     } else {
-      if (firstItem && queue[0].key === firstItem.key) {
+      if (firstItemMap[room] && queue[0].key === firstItemMap[room].key) {
         callback({
           updateQueue: true,
           queueLength: queue.length
@@ -71,7 +76,7 @@ function setQueueListener(callback) {
         return;
       }
 
-      firstItem = queue[0];
+      const firstItem = queue[0];
 
       const inQueue = queue.some(i => i.currentUsers);
 
@@ -79,6 +84,8 @@ function setQueueListener(callback) {
         firstItem.timeoutId = setTimeout(stop, 30000);
         interval = setInterval(stopInterval, 1000);
       }
+
+      firstItemMap[room] = firstItem;
 
       callback({
         firstItem,
@@ -89,9 +96,9 @@ function setQueueListener(callback) {
   });
 }
 
-function removeQueueListener() {
-  if (currentCallback) {
-    queueRef.off("value", currentCallback);
+function removeQueueListener(room) {
+  if ((room in currentCallbackMap) && (room in queueRefs)) {
+    queueRefs[room].off("value", currentCallbackMap[room]);
   }
   if (currentIntervalCallback) {
     intervalRef.off("value", currentIntervalCallback);
@@ -105,29 +112,29 @@ function stopInterval() {
   });
 }
 
-function stop() {
-  if (firstItem && firstItem.currentUsers) {
+function stop(room) {
+  if (firstItemMap[room] && firstItemMap[room].currentUsers) {
     time = 30;
     intervalRef.set({
       time
     });
     clearInterval(interval);
-    clearTimeout(firstItem.timeoutId);
-    queueRef.child(firstItem.key).remove();
+    clearTimeout(firstItemMap[room].timeoutId);
+    queueRefs[room].child(firstItemMap[room].key).remove();
   } else {
-    let toRemove = queue.find(item => item.uid === uid);
+    let toRemove = queueMap[room].find(item => item.uid === uid);
     if (toRemove) {
-      queueRef.child(toRemove.key).remove();
+      queueRefs[room].child(toRemove.key).remove();
     }
   }
 }
 
-function enqueue() {
+function enqueue(room) {
   if (!uid) return;
   const item = {
     uid: uid
   };
-  let queueItem = queueRef.push(item);
+  let queueItem = queueRefs[room].push(item);
   return {
     key: queueItem.key,
     ...item
@@ -139,7 +146,6 @@ window.enqueue = enqueue;
 window.setQueueListener = setQueueListener;
 
 export {
-  queueRef,
   stop,
   enqueue,
   setQueueListener,

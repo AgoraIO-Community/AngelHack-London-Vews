@@ -1,0 +1,69 @@
+.stream .streams-wrapper .chat {
+  .chat-messages {
+    width: 100%;
+    height: calc(100% - 50px);
+    overflow: hidden;
+    position: relative !important;
+
+    .chat-message {
+      position: absolute !important;
+      bottom: 0;
+      font-size: 30px;
+
+      animation-name: emoji-fly;
+      animation-duration: 2s;
+      animation-iteration-count: 1;
+      animation-direction: alternate;
+      animation-timing-function: ease-in;
+    }
+  }
+
+  .chat-emoji-buttons {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+
+    .emoji-button-container {
+      width: 33%;
+      text-align: center;
+    }
+
+    .emoji-button {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      margin: 10px;
+      line-height: 30px;
+      border-radius: 50%;
+      text-align: center;
+      user-select: none;
+      cursor: pointer;
+      background-color: transparent !important;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.3) !important;
+      }
+    }
+  }
+}
+
+@keyframes emoji-fly {
+  0% {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 0;
+  }
+
+  100% {
+    bottom: 90%;
+    opacity: 0;
+  }
+}

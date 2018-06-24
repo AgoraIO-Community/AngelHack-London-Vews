@@ -17,7 +17,7 @@ class Stream extends Component {
       watching: false,
       queueLength: 0,
       time: 30,
-      watchingStream: null
+      watchingStream: null,
     };
   }
 
@@ -42,7 +42,7 @@ class Stream extends Component {
               time: interval
             });
           });
-          queue.setQueueListener(queueState => {
+          queue.setQueueListener(this.props.topic.id, queueState => {
             console.log(`Queue state changed to ${JSON.stringify(queueState)}`);
             this.setState(queueState);
             if (queueState.firstItem) {
@@ -68,7 +68,7 @@ class Stream extends Component {
 
   disconnect() {
     this.stopEverything();
-    queue.removeQueueListener();
+    queue.removeQueueListener(this.props.topic.id);
     let client = this.state.client;
     console.log("disconnecting...");
 
@@ -179,12 +179,12 @@ class Stream extends Component {
   }
 
   stop() {
-    queue.stop();
+    queue.stop(this.props.topic.id);
     this.setState({ inQueue: false });
   }
 
   enqueue() {
-    queue.enqueue();
+    queue.enqueue(this.props.topic.id);
     this.setState({ inQueue: true });
   }
 
