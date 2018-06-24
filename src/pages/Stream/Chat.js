@@ -13,7 +13,8 @@ class Chat extends Component {
             "👌",
             "👎",
             "❤️"
-        ]
+        ],
+        loaded: false
     };
 
     componentDidMount() {
@@ -35,6 +36,11 @@ class Chat extends Component {
                     roomId: currentUser.rooms[0].id,
                     hooks: {
                         onNewMessage: message => {
+                            if(!this.state.loaded) {
+                                this.setState({loaded: true});
+                                this.props.onLoad();
+                            }
+
                             this.setState({messages: [...this.state.messages, {
                                 id: message.id,
                                 text: message.text,

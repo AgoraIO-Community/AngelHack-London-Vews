@@ -10,6 +10,7 @@ let staticRoom = "";
 
 function removeStaticRoom() {
   watchingcount.removeCountsListener(staticRoom);
+  queue.stop(staticRoom);
 }
 
 class Stream extends Component {
@@ -26,6 +27,7 @@ class Stream extends Component {
       time: 30,
       watchingStream: null,
       numWatching: 0,
+      canStream: false
     };
   }
 
@@ -246,7 +248,7 @@ class Stream extends Component {
               {!this.state.streaming && !this.state.watching ? (
                 <h5>No one is streaming right now, why don't you?</h5>
               ) : null}
-              <Chat/>
+              <Chat onLoad={() => this.setState({canStream: true})}/>
             </div>
             <div className="info">
               <div style={{
@@ -270,13 +272,16 @@ class Stream extends Component {
                 alignItems: 'flex-end',
                 flexWrap: 'wrap'
               }}>
-                <div
-                  className="button back"
-                  onClick={() => this.props.goBack()}
-                >
-                  Back to Stories.
-                </div>
-                {this.state.inQueue ? (
+                  {
+                    this.state.inQueue && this.state.firstItem.currentUsers ? (<div/>) : (<div
+                        className="button back"
+                        onClick={() => this.props.goBack()}
+                    >
+                        Back to Stories.
+                    </div>
+                      )
+                  }
+                {this.state.canStream ? (this.state.inQueue ? (
                   this.state.firstItem.currentUsers ? (
                     <div className="button" onClick={() => this.stop()}>
                       Stop streaming.
@@ -290,7 +295,7 @@ class Stream extends Component {
                   <div className="button" onClick={() => this.enqueue()}>
                     Join streaming queue.
                   </div>
-                )}
+                )) : (<div/>)}
               </div>
             </div>
           </div>
