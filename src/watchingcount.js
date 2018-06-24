@@ -4,37 +4,30 @@ const countsRef = firebase.database().ref("counts");
 
 let counts = {};
 let countsCallback;
+let joined = {};
 
 function setCountsListener(room, callback) {
     countsCallback = countsRef.on("value", snap => {
         counts = snap.val();
         callback(room in counts ? counts[room] : 0);
+
+        if(!(room in joined)) {
+            joined[room] = true;
+            countsRef.child(room).set(counts[room] + 1);
+        }
     });
 }
 
-function removeCountsListener() {
+function removeCountsListener(room) {
     countsRef.off("value", countsCallback);
-}
 
-function join(room) {
-    let newValue = 1;
-    if(room in counts) {
-        newValue = counts[room] + 1;
+    if(room in joined) {
+        delete room[joined];
+        countsRef.child(room).set(counts[room] - 1);
     }
-    countsRef.child(room).set(newValue);
-}
-
-function leave(room) {
-    let newValue = 0;
-    if(room in counts) {
-        newValue = counts[room] - 1;
-    }
-    countsRef.child(room).set(newValue);
 }
 
 export {
     setCountsListener,
     removeCountsListener,
-    join,
-    leave
 }
