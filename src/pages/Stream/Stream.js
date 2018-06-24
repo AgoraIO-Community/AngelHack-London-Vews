@@ -10,6 +10,7 @@ let staticRoom = "";
 
 function removeStaticRoom() {
   watchingcount.removeCountsListener(staticRoom);
+  queue.stop(staticRoom);
 }
 
 class Stream extends Component {
@@ -270,12 +271,15 @@ class Stream extends Component {
                 alignItems: 'flex-end',
                 flexWrap: 'wrap'
               }}>
-                <div
-                  className="button back"
-                  onClick={() => this.props.goBack()}
-                >
-                  Back to Stories.
-                </div>
+                  {
+                    this.state.inQueue && this.state.firstItem.currentUsers ? (<div/>) : (<div
+                        className="button back"
+                        onClick={() => this.props.goBack()}
+                    >
+                        Back to Stories.
+                    </div>
+                      )
+                  }
                 {this.state.inQueue ? (
                   this.state.firstItem.currentUsers ? (
                     <div className="button" onClick={() => this.stop()}>
