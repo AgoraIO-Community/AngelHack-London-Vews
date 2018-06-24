@@ -29,6 +29,8 @@ class Stream extends Component {
     watchingcount.setCountsListener(this.props.topic.id, count => {
         this.setState({numWatching: count});
     });
+
+    window.addEventListener('beforeunload', this.componentWillUnmount);
   }
 
   connect() {
@@ -43,7 +45,7 @@ class Stream extends Component {
         },
         () => {
           console.log("Client ready!");
-          queue.setIntervalListener(interval => {
+          queue.setIntervalListener(this.props.topic.id, interval => {
             this.setState({
               time: interval
             });
@@ -189,6 +191,8 @@ class Stream extends Component {
     this.stopEverything();
     this.disconnect();
     watchingcount.removeCountsListener(this.props.topic.id);
+
+    window.removeEventListener('beforeunload', this.componentWillUnmount);
   }
 
   stop() {
