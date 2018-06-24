@@ -27,6 +27,31 @@ class Chat extends Component {
         });
         this.setState({chatManager});
 
+        let initialMessageQueue = [];
+        let addingInitialMessages = true;
+
+        const doInitialMessageQueue = () => {
+            addingInitialMessages = false;
+
+            const doInitialShowMessage = () => {
+                if(initialMessageQueue.length > 0) {
+                    const m = initialMessageQueue.shift();
+                    addMessage(m);
+                    setTimeout(doInitialMessageQueue, 100);
+                }
+            };
+
+            doInitialShowMessage();
+        };
+
+        const addMessage = (message) => {
+            this.setState({messages: [...this.state.messages, message]});
+
+            setTimeout(() => {
+                this.setState({messages: this.state.messages.filter(m => m.id !== message.id)});
+            }, 1900)
+        };
+
         chatManager
             .connect()
             .then(currentUser => {
@@ -34,22 +59,26 @@ class Chat extends Component {
                 // noinspection JSUnresolvedFunction, JSUnresolvedVariable, JSUnusedGlobalSymbols
                 currentUser.subscribeToRoom({
                     roomId: currentUser.rooms[0].id,
+                    messageLimit: 10,
                     hooks: {
                         onNewMessage: message => {
                             if(!this.state.loaded) {
                                 this.setState({loaded: true});
                                 this.props.onLoad();
+                                setTimeout(doInitialMessageQueue, 150);
                             }
 
-                            this.setState({messages: [...this.state.messages, {
+                            const m = {
                                 id: message.id,
                                 text: message.text,
                                 x: Math.random() * 80
-                            }]});
+                            };
 
-                            setTimeout(() => {
-                                this.setState({messages: this.state.messages.filter(m => m.id !== message.id)});
-                            }, 1900)
+                            if(addingInitialMessages) {
+                                initialMessageQueue.push(m)
+                            } else {
+                                addMessage(m);
+                            }
                         }
                     }
                 });
