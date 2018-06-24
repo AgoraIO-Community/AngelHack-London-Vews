@@ -20,7 +20,7 @@ class Home extends Component {
                 <h5 style={{
                   color: (i === 0 ? "white" : "#5A5B5E")
                 }}>{current.description}</h5>
-                <div className={"button" + (i === 0 ? " first" : " rest")} onClick={this.props.onDiscuss}>
+                <div className={"button" + (i === 0 ? " first" : " rest")} onClick={() => this.props.onDiscuss(current)}>
                   Discuss
                 </div>
               </div>

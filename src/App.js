@@ -14,7 +14,8 @@ class App extends Component {
       topic: null,
       client: null,
       streamPage: false,
-      uid: null
+      uid: null,
+      currentTopic: null,
     };
   }
 
@@ -45,16 +46,21 @@ class App extends Component {
     this.topicRef.off("value", this.topicCallback);
   }
 
+  discuss(topic) {
+    this.setState({currentTopic: topic});
+    this.setState({ streamPage: true });
+  }
+
   render() {
     return (
       <div className="App">
         {this.state.topic && this.state.uid ? (
-          this.state.streamPage ? (
-            <Stream uid={this.state.uid} topic={this.state.topic} goBack={this.goBack.bind(this)} />
+          (this.state.streamPage && this.state.currentTopic) ? (
+            <Stream uid={this.state.uid} topic={this.state.currentTopic} goBack={this.goBack.bind(this)} />
           ) : (
             <Home
               topic={this.state.topic}
-              onDiscuss={() => this.setState({ streamPage: true })}
+              onDiscuss={topic => this.discuss(topic)}
             />
           )
         ) : (
