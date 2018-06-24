@@ -29,7 +29,6 @@ class Stream extends Component {
     watchingcount.setCountsListener(this.props.topic.id, count => {
         this.setState({numWatching: count});
     });
-    watchingcount.join(this.props.topic.id);
   }
 
   connect() {
@@ -184,8 +183,7 @@ class Stream extends Component {
   componentWillUnmount() {
     //queueRef.off("value", this.queueCallback);
 
-    watchingcount.leave(this.props.topic.id);
-    watchingcount.removeCountsListener();
+    watchingcount.removeCountsListener(this.props.topic.id);
   }
 
   stop() {
