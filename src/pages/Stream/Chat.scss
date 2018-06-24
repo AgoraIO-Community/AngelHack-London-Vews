@@ -1,13 +1,18 @@
-.stream .stream-container .chat-container {
+.stream .streams-wrapper .stream-container .chat-container {
   position: absolute !important;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  background: rgba(0, 0, 255, 0.1) !important;
+
+  * {
+    background: rgba(0, 0, 255, 0.1) !important;
+  }
 
   .chat-messages {
     width: 100%;
-    height: calc(100% - 50px);
+    height: calc(100% - 68px - 50px);
     overflow: hidden;
     position: relative !important;
 
