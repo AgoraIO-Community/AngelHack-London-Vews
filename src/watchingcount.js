@@ -8,7 +8,7 @@ let joined = {};
 
 function setCountsListener(room, callback) {
     countsCallback = countsRef.on("value", snap => {
-        counts = snap.val();
+        counts = snap.val() || {};
         console.log(counts);
         callback(room in counts ? counts[room] : 0);
 
