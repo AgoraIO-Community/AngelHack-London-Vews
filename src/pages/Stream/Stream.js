@@ -1,6 +1,7 @@
 import AgoraRTC from "agora-rtc-sdk";
 import React, { Component } from "react";
 import * as queue from "../../queue";
+import * as watchingcount from "../../watchingcount";
 import Chat from "./Chat";
 
 import "./Stream.scss";
@@ -18,11 +19,17 @@ class Stream extends Component {
       queueLength: 0,
       time: 30,
       watchingStream: null,
+      numWatching: 0,
     };
   }
 
   componentDidMount() {
     this.connect();
+
+    watchingcount.setCountsListener(this.props.topic.id, count => {
+        this.setState({numWatching: count});
+    });
+    watchingcount.join(this.props.topic.id);
   }
 
   connect() {
@@ -176,6 +183,9 @@ class Stream extends Component {
 
   componentWillUnmount() {
     //queueRef.off("value", this.queueCallback);
+
+    watchingcount.leave(this.props.topic.id);
+    watchingcount.removeCountsListener();
   }
 
   stop() {
@@ -219,9 +229,9 @@ class Stream extends Component {
             </div>
             <div className="info">
               <div>
-                {/* <p style={{
+                 <p style={{
                 margin: 0
-              }}>10 people watching.</p> */}
+                  }}>{this.state.numWatching} {this.state.numWatching === 1 ? "person" : "people"} watching.</p>
                 <p
                   style={{
                     margin: 0
