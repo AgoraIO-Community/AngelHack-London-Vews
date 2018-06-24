@@ -79,6 +79,20 @@ class Stream extends Component {
         }
       );
     });
+
+    client.on("stream-added", (evt) => {
+      console.log("Stream added");
+      var stream = evt.stream;
+      //Subscribe to a remote stream after a new stream is added
+      client.subscribe(stream, function(err) {});
+    });
+
+    client.on("stream-subscribed", evt => {
+        var stream = evt.stream;
+        stream.play("stream");
+
+        this.setState({ watching: true, watchingStream: stream });
+    });
   }
 
   disconnect() {
@@ -130,7 +144,9 @@ class Stream extends Component {
   }
 
   stream(uid) {
-    this.stopEverything();
+    if(this.state.streaming) {
+        this.stopEverything();
+    }
 
     let client = this.state.client;
 
@@ -153,16 +169,16 @@ class Stream extends Component {
   }
 
   watch() {
-    this.stopEverything();
+    if(this.state.streaming) {
+        this.stopEverything();
+    }
 
     let client = this.state.client;
 
     //  MONITOR
-    client.on("stream-added", evt => {
-      var stream = evt.stream;
-      //Subscribe to a remote stream after a new stream is added
-      client.subscribe(stream, function(err) {});
-    });
+    // client.on("stream-added", evt => {
+    //
+    // });
 
     /*
       @event: peer-leave when existing stream left the channel
@@ -172,12 +188,7 @@ class Stream extends Component {
     /*
       @event: stream-subscribed when a stream is successfully subscribed
       */
-    client.on("stream-subscribed", evt => {
-      var stream = evt.stream;
-      stream.play("stream");
 
-      this.setState({ watching: true, watchingStream: stream });
-    });
 
     /*
       @event: stream-removed when a stream is removed
