@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 // noinspection ES6CheckImport
-import { ChatManager, TokenProvider } from '@pusher/chatkit'
+//import { ChatManager, TokenProvider } from '@pusher/chatkit'
 
 import "./Chat.scss";
 
@@ -17,7 +17,7 @@ class Chat extends Component {
     };
 
     componentDidMount() {
-        const chatManager = new ChatManager({
+        /*const chatManager = new ChatManager({
             instanceLocator: "v1:us1:e689a8bc-0470-4836-809a-fdfff285adc9",
             userId: "user",
             tokenProvider: new TokenProvider({
@@ -52,12 +52,12 @@ class Chat extends Component {
             })
             .catch(error => {
                 console.error("Chat error:", error);
-            });
+            });*/
     }
 
     componentWillUnmount() {
-        this.setState({currentUser: null});
-        this.state.chatManager.disconnect();
+        /*this.setState({currentUser: null});
+        this.state.chatManager.disconnect();*/
     }
 
     sendMessage(message) {
