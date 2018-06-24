@@ -3,7 +3,7 @@ import firebase from "./firebase";
 let uid = null;
 let firstItemMap = {};
 let currentCallbackMap = {};
-let currentIntervalCallback;
+// let currentIntervalCallback;
 let queueMap = {};
 let queueRefs = {};
 
@@ -12,7 +12,9 @@ firebase.auth().onAuthStateChanged(user => {
 });
 
 // const queueRef = firebase.database().ref("/queue");
-const intervalRef = firebase.database().ref("/interval");
+//const intervalRef = firebase.database().ref("/interval");
+let intervalRefs = {};
+let intervalCallbacks = {};
 
 // For online count
 // const amOnline = new Firebase('https://<demo>.firebaseio.com/.info/connected');
@@ -24,13 +26,21 @@ const intervalRef = firebase.database().ref("/interval");
 //   }
 // });
 
-let interval;
-let time = 30;
+// let interval;
+// let time = 30;
+let timeMap = {};
+let updateIntervalsMap = {};
 
-function setIntervalListener(callback) {
-  currentIntervalCallback = intervalRef.on("value", snap => {
-    const val = snap.val();
+function setIntervalListener(room, callback) {
+  if(room in intervalRefs && room in intervalCallbacks) {
+    intervalRefs[room].off("value", intervalCallbacks[room]);
+  }
+  const intervalRef = firebase.database().ref("/interval/" + room);
+  intervalRefs[room] = intervalRef;
+  intervalCallbacks[room] = intervalRef.on("value", snap => {
+    const val = snap.val() || {time: 30};
     console.log("val", val);
+    timeMap[room] = val.time;
     callback(val.time);
   });
 }
@@ -85,7 +95,8 @@ function setQueueListener(room, callback) {
 
       if (firstItem.currentUsers) {
         firstItem.timeoutId = setTimeout(() => stop(room), 30000);
-        interval = setInterval(stopInterval, 1000);
+        timeMap[room] = 30;
+        updateIntervalsMap[room] = setInterval(() => stopInterval(room), 1000);
       }
 
       firstItemMap[room] = firstItem;
@@ -104,27 +115,30 @@ function removeQueueListener(room) {
   if ((room in currentCallbackMap) && (room in queueRefs)) {
     queueRefs[room].off("value", currentCallbackMap[room]);
   }
-  if (currentIntervalCallback) {
-    intervalRef.off("value", currentIntervalCallback);
+  if (intervalCallbacks[room]) {
+    intervalRefs[room].off("value", intervalCallbacks[room]);
   }
 }
 
-function stopInterval() {
-  time--;
-  intervalRef.set({
-    time
-  });
+function stopInterval(room) {
+  let time = 30;
+  if(room in timeMap) {
+    console.log("in time map!");
+    time = timeMap[room] - 1;
+  }
+  console.log({time});
+  intervalRefs[room].set({time});
 }
 
 function stop(room) {
   console.log(`QUEUE-DEBUG: Stopping user in room ${room}`);
   console.log(`QUEUE-DEBUG: First item`, firstItemMap[room]);
   if (firstItemMap[room] && firstItemMap[room].currentUsers) {
-    time = 30;
-    intervalRef.set({
-      time
+    timeMap[room] = 30;
+    intervalRefs[room].set({
+        time: timeMap[room]
     });
-    clearInterval(interval);
+    clearInterval(updateIntervalsMap[room]);
     clearTimeout(firstItemMap[room].timeoutId);
     queueRefs[room].child(firstItemMap[room].key).remove();
   } else {
