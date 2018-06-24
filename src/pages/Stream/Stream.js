@@ -144,7 +144,9 @@ class Stream extends Component {
   }
 
   watch() {
-    this.stopEverything();
+    // if(this.state.streaming || this.state.watching) {
+      this.stopEverything();
+    // }
 
     let client = this.state.client;
 
@@ -152,7 +154,9 @@ class Stream extends Component {
     client.on("stream-added", evt => {
       var stream = evt.stream;
       //Subscribe to a remote stream after a new stream is added
-      client.subscribe(stream, function(err) {});
+      client.subscribe(stream, function(err) {
+        console.log(err);
+      });
     });
 
     /*
@@ -182,7 +186,8 @@ class Stream extends Component {
 
   componentWillUnmount() {
     //queueRef.off("value", this.queueCallback);
-
+    this.stopEverything();
+    this.disconnect();
     watchingcount.removeCountsListener(this.props.topic.id);
   }
 
