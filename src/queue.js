@@ -35,7 +35,7 @@ function setIntervalListener(callback) {
   });
 }
 
-function setQueueListener(callback, room) {
+function setQueueListener(room, callback) {
   const queueRef = firebase.database().ref(`/queue/${room}`);
   if (currentCallbackMap[room]) {
     queueRefs[room].off("value", currentCallbackMap[room]);
