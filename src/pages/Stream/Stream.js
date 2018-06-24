@@ -6,6 +6,12 @@ import Chat from "./Chat";
 
 import "./Stream.scss";
 
+let staticRoom = "";
+
+function removeStaticRoom() {
+  watchingcount.removeCountsListener(staticRoom);
+}
+
 class Stream extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +36,8 @@ class Stream extends Component {
         this.setState({numWatching: count});
     });
 
-    window.addEventListener('beforeunload', this.componentWillUnmount);
+    staticRoom = this.props.topic.id;
+    window.addEventListener('beforeunload', removeStaticRoom);
   }
 
   connect() {
@@ -187,7 +194,7 @@ class Stream extends Component {
 
     watchingcount.removeCountsListener(this.props.topic.id);
 
-    window.removeEventListener('beforeunload', this.componentWillUnmount);
+    window.removeEventListener("beforeunload", removeStaticRoom);
   }
 
   stop() {
