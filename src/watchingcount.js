@@ -9,6 +9,7 @@ let joined = {};
 function setCountsListener(room, callback) {
     countsCallback = countsRef.on("value", snap => {
         counts = snap.val();
+        console.log(counts);
         callback(room in counts ? counts[room] : 0);
 
         if(!(room in joined)) {
@@ -22,7 +23,7 @@ function removeCountsListener(room) {
     countsRef.off("value", countsCallback);
 
     if(room in joined) {
-        delete room[joined];
+        delete joined[room];
         countsRef.child(room).set(counts[room] - 1);
     }
 }
