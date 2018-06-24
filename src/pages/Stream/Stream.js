@@ -215,6 +215,7 @@ class Stream extends Component {
               {!this.state.streaming && !this.state.watching ? (
                 <h5>No one is streaming right now, why don't you?</h5>
               ) : null}
+              {/*<Chat/>*/}
             </div>
             <div className="info">
               <div>
